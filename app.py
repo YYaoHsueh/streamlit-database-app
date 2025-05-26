@@ -69,3 +69,20 @@ if uploaded_file:
             st.image(scatter_path, caption="Scatter Trend", use_column_width=True)
         else:
             st.warning("Please select exactly one input and one output variable")
+        
+    # 新增：折線圖即時顯示
+    st.header("5. Line Chart for Two Columns")
+    st.write("Select two columns to plot a line chart (X vs Y)")
+
+    if df is not None:
+        col_options = df.columns.tolist()
+        x_col = st.selectbox("X-axis", col_options, key="line_x")
+        y_col = st.selectbox("Y-axis", col_options, key="line_y")
+
+        if st.button("Plot Line Chart"):
+            if x_col and y_col:
+                chart_df = df[[x_col, y_col]].dropna().sort_values(by=x_col)
+                chart_df.set_index(x_col, inplace=True)
+                st.line_chart(chart_df)
+            else:
+                st.warning("Please select both X and Y columns to plot.")
