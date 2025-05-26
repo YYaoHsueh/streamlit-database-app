@@ -164,7 +164,25 @@ def plot_heatmap(correlation_matrix, output_file="temp_heatmap.png"):
     except Exception as e:
         print(f"Error saving heatmap: {e}")  # 紀錄錯誤日誌
 
-
+def plot_trend(df, x_col, y_col, title, output_file="two_parameters_trend.png"):
+    """
+    繪製散點圖與趨勢線，並儲存圖片而不是直接顯示
+    """
+    if df.empty:
+        print("無法繪圖，數據表為空！")
+        return
+    
+    plt.figure(figsize=(8, 5))
+    plt.plot(df[x_col], df[y_col], color='blue', alpha=0.6, label="Data")
+    plt.xlabel(x_col)
+    plt.ylabel(y_col)
+    plt.title(title)
+    plt.legend()
+    plt.grid(True)
+    
+    plt.savefig(output_file)  # 儲存圖片
+    print(f"Two parameters trend saved to {output_file}")  # 確保檔案成功儲存
+    plt.close()  # 釋放記憶體
 
 if __name__ == "__main__":
     db_name = "Design6056_2025.db"

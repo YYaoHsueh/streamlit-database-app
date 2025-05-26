@@ -81,8 +81,9 @@ if uploaded_file:
 
         if st.button("Plot Line Chart"):
             if x_col and y_col:
-                chart_df = df[[x_col, y_col]].dropna().sort_values(by=x_col)
-                chart_df.set_index(x_col, inplace=True)
-                st.line_chart(chart_df)
-            else:
-                st.warning("Please select both X and Y columns to plot.")
+                line_df = df[[x_col, y_col]].dropna()
+                output_file = "line_chart_trend.png"
+                db2.plot_trend(line_df, x_col, y_col, f"{x_col} vs {y_col}", output_file)
+                st.image(output_file, caption=f"{x_col} vs {y_col} Line Trend", use_column_width=True)
+        else:
+            st.warning("Please select both X and Y columns to plot.")
