@@ -30,8 +30,7 @@ if uploaded_file:
 
     if st.button("Run Query"):
         try:
-            df_all = db2.load_data(db_path, table_name)
-            df_filtered = df_all.query(query_str)
+            df_filtered = df.query(query_str)
             st.success("Query successful")
             st.dataframe(df_filtered)
         except Exception as e:
